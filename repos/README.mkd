@@ -1,0 +1,169 @@
+BiwaScheme
+==========
+
+BiwaScheme is a Scheme interpreter written in JavaScript.
+
+Works with web browsers (including mobile devices) and Node.js.
+
+Demos
+-----
+
+see [http://www.biwascheme.org/](http://www.biwascheme.org/)
+
+Download
+========
+
+* [http://www.biwascheme.org/repos/release/biwascheme-min.js](http://www.biwascheme.org/repos/release/biwascheme-min.js) (release version)
+
+How to use
+==========
+
+Just load biwascheme.js (or biwascheme-min.js) and write Scheme code.
+
+    <!DOCTYPE html>
+    <html>
+    <body>
+    
+    <div id="bs-console"></div>
+    
+    <script src="biwascheme.js">
+    (display "hello, world!")
+    </script>
+    
+    </body>
+    </html>
+
+How to use with node.js to run a biwa script
+--------------------------------------------
+
+1. $ npm install biwascheme
+2. create a file a.scm:
+
+    (display "Hello, world!")
+    (newline)
+
+3. $ biwas a.scm
+
+How to use from inside node.js as a module
+------------------------------------------
+
+1. $ npm install biwascheme
+2. create a file a.scm:
+
+    (display "Hello, world!")
+    (newline)
+
+3. create a file server.js:
+
+    var BiwaScheme = require("biwascheme").BiwaScheme;
+    BiwaScheme.run("a.scm");
+
+4. $ node server.js
+
+Files
+=====
+
+* release/
+  + biwascheme.js : The latest release version, uncompressed
+  + biwascheme-min.js : The latest release version, compressed
+* node_modules/
+  + Files for npm package
+* demo/
+  + Demos
+* src/
+  + deps/
+     - Dependencies (jQuery, underscore)
+  + system/
+     - Source code of the interpreter
+  + library/
+     - Built-in library functions
+  + platform/
+     - Platform dependent code (browser, node, etc.)
+* test/
+  + Unit tests
+* tuplespace/
+  + (experimental) TupleSpace implemented in Scheme
+* website/
+  + HTMLs and CSS of www.biwascheme.org
+
+Building biwascheme.js
+----------------------
+
+Prerequisites:
+
+* make
+* sed
+* node (Node.js)
+* uglifyjs ($ npm install uglify-js -g) 
+
+Make compiles src/\*.js into release/biwascheme.js.
+
+    $ make
+
+Development
+===========
+
+- [Repository](https://github.com/biwascheme/biwascheme)
+- [Issues](https://github.com/biwascheme/biwascheme/issues)
+- [Mailing-list](http://groups.google.co.jp/group/biwascheme)
+
+How to add a new file (memo)
+----------------------------
+
+* edit Makefile
+* edit src/development_loader.js
+
+How to release (memo)
+---------------------
+
+1. Edit History.txt
+2. Edit VERSION
+3. Edit node_modules/biwascheme/package.json
+4. $ make -B
+5. Make sure it is working:
+   + run tests
+     - open test/spec.html
+     - open test/spec.html#release
+     - open test/spec.html#min
+     - run test/browser_functions/
+       - $ cd test/browser_functions && node server.js && open http://localhost:7001/
+   + run demos
+     - demo/*
+     - open repl.html
+     - open website/i.html
+     - open test/tracer.html
+     - open test/tracer_auto.html
+   + try npm package
+       - $ npm install node_modules/biwascheme/ -g
+       - $ biwas -v
+6. Commit and create tag ($ git tag x.y.z)
+7. Push changes to github with --tags
+8. Update website on web server (git pull)
+9. Publish npm package
+  - $ npm publish node_modules/biwascheme/
+10. Copy generated files (release/) to web server
+
+License
+=======
+
+MIT-LICENSE
+
+Acknowledgements
+================
+
+* Kent Dyvbig, Three implementation models for scheme
+  * http://www.cs.indiana.edu/~dyb/pubs/3imp.pdf
+
+* jsScheme
+  * http://alex.ability.ru/scheme.html (inavailable)
+
+* ExplorerCanvas (demo/excanvas.js)
+  * http://excanvas.sourceforge.net/
+
+Contact
+=======
+
+https://github.com/biwascheme/biwascheme
+
+Yutaka HARA (yhara) yutaka.hara.gmail.com
+http://twitter.com/yhara_en
